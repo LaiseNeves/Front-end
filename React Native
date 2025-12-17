@@ -1,0 +1,37 @@
+Framework baseado em React
+
+Usado para apps mobile (Android e iOS)
+
+Código em JavaScript/TypeScript, mas gera componentes nativos
+
+Compartilha lógica com React web
+
+Ideal para aplicativos mobile multiplataforma
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+React Native = o mesmo quebra-cabeça, mas para outro tabuleiro
+
+Por quê?
+
+Usa a lógica do React
+
+Mas as peças viram componentes nativos
+
+O “tabuleiro” agora é celular, não navegador
+
+Metáfora
+
+React Native é pegar o mesmo quebra-cabeça do React
+e montar em um tabuleiro diferente, onde as regras são de Android e iOS.
+
+Consequência
+
+Reaproveita conhecimento de React
+
+Performance próxima de nativo
+
+Precisa entender limitações de mobile
+
+
+__________________
