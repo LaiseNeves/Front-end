@@ -1,0 +1,24 @@
+Vue
+
+Framework progressivo para interfaces web
+
+Sintaxe mais simples e próxima de HTML, CSS e JS separados
+
+Curva de aprendizado mais fácil
+
+Estrutura mais guiada
+
+Ideal para projetos rápidos e equipes menores
+
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Resumo rápido
+
+React → Web
+
+Vue → Web (mais simples)
+
+React Native → Mobile (Android/iOS)
+
+_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
