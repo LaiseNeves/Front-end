@@ -1,0 +1,435 @@
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+INTRODUCAO
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Esse arquivo contêm estudos sobre React, Vue e React Native. Há comparacoes, levantamento de aspectos comuns e códigos em JS e TS. 
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Visão geral 
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+| Item      | React            | React Native           | Vue.js                |
+| --------- | ---------------- | ---------------------- | --------------------- |
+| Tipo      | Biblioteca JS    | Framework mobile       | Framework JS          |
+| Onde roda | Web (HTML)       | Mobile (iOS / Android) | Web (HTML)            |
+| Base      | JavaScript + JSX | JavaScript + JSX       | JavaScript + Template |
+| Renderiza | DOM              | Componentes nativos    | DOM                   |
+| Estado    | useState / hooks | useState / hooks       | reactive / ref        |
+| Estilo    | CSS / styled     | StyleSheet             | CSS / scoped          |
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Similaridades (o que une os três)
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+- Tudo é componentizado
+- Tudo é reativo (estado muda → interface muda)
+- Usa JavaScript moderno
+- Incentiva separar lógica e visual
+- Trabalha com props (dados que entram no componente)
+
+só mudam a sintaxe e o ambiente
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Diferença conceitual principal (isso é crucial)
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+React (Web)
+Você pensa em HTML + JS
+“Isso aqui é um <input> no navegador”
+
+React Native
+Você pensa em componentes nativos
+“Isso aqui vira um botão real do Android/iOS”
+
+Vue.js
+Você pensa em HTML declarativo com lógica separada
+“Template manda, JS reage”
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Exemplo prático com JS 
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+Mesmo componente: Radio Button com duas opções
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+React (Web)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+import { useState } from "react";
+
+function RadioExample() {
+  const [option, setOption] = useState("A");
+
+  return (
+    <div>
+      <label>
+        <input
+          type="radio"
+          value="A"
+          checked={option === "A"}
+          onChange={(e) => setOption(e.target.value)}
+        />
+        Opção A
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          value="B"
+          checked={option === "B"}
+          onChange={(e) => setOption(e.target.value)}
+        />
+        Opção B
+      </label>
+
+      <p>Selecionado: {option}</p>
+    </div>
+  );
+}
+
+export default RadioExample;
+
+---> Lógica mental do React
+      - useState guarda o estado;
+      - O checked depende do estado;
+      - O onChange atualiza o estado;
+      - Estado muda → React re-renderiza;
+
+---> Resumo mental:
+      - O HTML reflete o estado, nunca o contrário.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+React Native (Mobile)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aqui não existe <input>. Tudo vira componente nativo.
+
+import { useState } from "react";
+import { View, Text, Pressable } from "react-native";
+
+function Radio({ label, value, selected, onSelect }) {
+  return (
+    <Pressable onPress={() => onSelect(value)}>
+      <Text>
+        {selected ? "◉" : "○"} {label}
+      </Text>
+    </Pressable>
+  );
+}
+
+export default function RadioExample() {
+  const [option, setOption] = useState("A");
+
+  return (
+    <View>
+      <Radio
+        label="Opção A"
+        value="A"
+        selected={option === "A"}
+        onSelect={setOption}
+      />
+
+      <Radio
+        label="Opção B"
+        value="B"
+        selected={option === "B"}
+        onSelect={setOption}
+      />
+
+      <Text>Selecionado: {option}</Text>
+    </View>
+  );
+}
+
+
+---> Lógica mental do React Native
+      - Não existe HTML
+      - Tudo é componente visual nativo
+      - Criamos o comportamento do radio “na mão”
+      - Estado controla o visual (bolinha cheia ou vazia)
+
+---> Resumo mental:
+      - Não penso em HTML. Penso em comportamento e estado.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Vue.js (Web)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Aqui a separação é template + script.
+
+Código (Vue 3 – Composition API):
+
+<template>
+  <div>
+    <label>
+      <input type="radio" value="A" v-model="option" />
+      Opção A
+    </label>
+
+    <label>
+      <input type="radio" value="B" v-model="option" />
+      Opção B
+    </label>
+
+    <p>Selecionado: {{ option }}</p>
+  </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const option = ref("A");
+</script>
+
+
+---> Lógica mental do Vue
+      * v-model cria ligação automática
+      * Não precisa de onChange
+      * Menos código explícito
+      * Mais “mágica”, menos boilerplate
+
+---> Resumo mental:
+      * O HTML conversa direto com o estado.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Comparação direta do exemplo
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+| Conceito    | React    | React Native | Vue                  |
+| ----------- | -------- | ------------ | -------------------- |
+| Estado      | useState | useState     | ref                  |
+| Binding     | Manual   | Manual       | Automático           |
+| HTML        | Sim      | Não          | Sim                  |
+| Boilerplate | Médio    | Alto         | Baixo                |
+| Controle    | Total    | Total        | Alto (com abstração) |
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Quando usar cada um
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+---> React
+        - Web apps grandes
+        - Dashboards
+        - Sistemas corporativos
+        - Mercado gigante
+
+---> React Native
+        - App mobile real
+        - Compartilhar lógica com React Web
+        - Performance boa sem aprender Swift/Kotlin
+
+---> Vue.js
+        - Curva de aprendizado mais suave
+        - Projetos rápidos
+        - Muito usado em startups e projetos educacionais
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Exemplo prático com TS 
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+React + TS é sobre controle absoluto do estado.
+Em React Native, TS não é glamour. É proteção contra erro visual e lógico.
+Aqui o TS é mais silencioso, mas igualmente forte
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+React (Web) + TypeScript
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import { useState, ChangeEvent } from "react";
+
+type Option = "A" | "B";
+
+function RadioExample(): JSX.Element {
+  const [option, setOption] = useState<Option>("A");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setOption(e.target.value as Option);
+  };
+
+  return (
+    <div>
+      <label>
+        <input
+          type="radio"
+          value="A"
+          checked={option === "A"}
+          onChange={handleChange}
+        />
+        Opção A
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          value="B"
+          checked={option === "B"}
+          onChange={handleChange}
+        />
+        Opção B
+      </label>
+
+      <p>Selecionado: {option}</p>
+    </div>
+  );
+}
+
+export default RadioExample;
+
+
+---> type Option = "A" | "B"
+Não existe valor inválido
+
+---> useState<Option>
+O estado só aceita "A" ou "B"
+
+---> ChangeEvent<HTMLInputElement>
+Tipagem correta do evento
+
+---> as Option
+Cast explícito, porque o DOM retorna string
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+React Native + TypeScript
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+import { useState } from "react";
+import { View, Text, Pressable } from "react-native";
+
+type Option = "A" | "B";
+
+type RadioProps = {
+  label: string;
+  value: Option;
+  selected: boolean;
+  onSelect: (value: Option) => void;
+};
+
+function Radio({
+  label,
+  value,
+  selected,
+  onSelect,
+}: RadioProps): JSX.Element {
+  return (
+    <Pressable onPress={() => onSelect(value)}>
+      <Text>
+        {selected ? "◉" : "○"} {label}
+      </Text>
+    </Pressable>
+  );
+}
+
+export default function RadioExample(): JSX.Element {
+  const [option, setOption] = useState<Option>("A");
+
+  return (
+    <View>
+      <Radio
+        label="Opção A"
+        value="A"
+        selected={option === "A"}
+        onSelect={setOption}
+      />
+
+      <Radio
+        label="Opção B"
+        value="B"
+        selected={option === "B"}
+        onSelect={setOption}
+      />
+
+      <Text>Selecionado: {option}</Text>
+    </View>
+  );
+}
+
+
+---> RadioProps
+Contrato claro entre componentes
+
+---> onSelect: (value: Option) => void
+Impossível passar valor errado
+
+---> useState<Option>
+Estado sempre consistente
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Vue 3 + TypeScript (Composition API)
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+<template>
+  <div>
+    <label>
+      <input type="radio" value="A" v-model="option" />
+      Opção A
+    </label>
+
+    <label>
+      <input type="radio" value="B" v-model="option" />
+      Opção B
+    </label>
+
+    <p>Selecionado: {{ option }}</p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+
+type Option = "A" | "B";
+
+const option = ref<Option>("A");
+</script>
+
+
+---> ref<Option>
+Estado tipado
+
+---> v-model
+Só aceita valores compatíveis
+
+---> Menos necessidade de casts
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Comparação direta com TypeScript
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+| Item              | React            | React Native     | Vue       |
+| ----------------- | ---------------- | ---------------- | --------- |
+| Verbosidade       | Média            | Alta             | Baixa     |
+| Tipagem explícita | Alta             | Muito alta       | Média     |
+| Props tipadas     | Interface / type | Interface / type | Implícito |
+| Curva com TS      | Média            | Alta             | Baixa     |
+| Controle fino     | Alto             | Muito alto       | Alto      |
+
+
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+Resumo
+_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+React + TS
+Ótimo equilíbrio entre controle e produtividade
+
+React Native + TS
+TS é praticamente obrigatório para não se perder
+
+Vue + TS
+Mais limpo, menos ruído, ótimo pra velocidade
+
+
+
+
+
+
+
+
+
+
+
